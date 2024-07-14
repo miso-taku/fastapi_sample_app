@@ -6,6 +6,20 @@ services:
       - .dockerenv:/src.venv
       - .:/src
     ports:
-      - "8000:8000"
+      - 8000:8000 # ホストマシンのポート8000番をコンテナのポート8000番にマッピング
     environment:
-      - WATCHFILES_FORCE_POLLING=true
+      - WATCHFILES_FORCE_POLLING=true # 環境によってホットリロードのため必要
+  db:
+    image: mysql:8.0
+    platform: linux/x86_64
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes" # パスワードなしでログインできるように設定
+      MYSQL_DATABASE: "demo" # 初期データベースとしてdemoを作成
+      TZ: "Asis/Tokyo" # タイムゾーンを日本に設定
+    volumes:
+      - mysql_data:/var/lib/mysql
+    command: --default-authentication-plugin=mysql_native_password # MySQL8.0での認証プラグインを設定
+    ports:
+      - 3306:3306 # ホストマシンのポート3306番をコンテナのポート3306番にマッピング
+volumes:
+  mysql_data:
