@@ -9,3 +9,9 @@ docker compose exec demo-app poetry add sqlalchemy pymysql
 docker compose exec demo-app poetry run python -m api.migrate_db
 
 docker compose exec db mysql demo
+
+docker compose run demo-app 
+
+docker compose exec demo-app poetry add aiomysql
+
+docker compose up
