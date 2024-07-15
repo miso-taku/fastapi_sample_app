@@ -38,4 +38,8 @@ def update_task(db: Session,
     db.commit()
     db.refresh(original)
     return original
+
+def delete_task(db: Session, original: task_model.Task) -> None:
+    db.delete(original)
+    db.commit()
     
