@@ -15,3 +15,7 @@ docker compose run demo-app
 docker compose exec demo-app poetry add aiomysql
 
 docker compose up
+
+docker compose run --entrypoint "poetry add -G dev pytest-asyncio aiosqlite httpx" demo-app
+
+docker compose run --entrypoint "poetry run pytest" demo-app
