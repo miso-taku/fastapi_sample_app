@@ -72,3 +72,15 @@ async def test_done_flag(async_client):
     # 既に完了フラグが外れているので、404を返却
     response = await async_client.delete("/tasks/1/done")
     assert response.status_code == starlette.status.HTTP_400_BAD_REQUEST
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize(
+    "input_param, exception", 
+    [
+        ("2023-12-31", starlette.status.HTTP_200_OK), 
+        ("2023-12-32", starlette.status.HTTP_422_UNPROCESSABLE_ENTITY)
+    ],
+)
+async def test_due_date(async_client, input_param, exception):
+    response = await async_client.post("/tasks", json={"title": "test task 3", "due_date": input_param})
+    assert response.status_code == exception

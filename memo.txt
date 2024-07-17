@@ -19,3 +19,5 @@ docker compose up
 docker compose run --entrypoint "poetry add -G dev pytest-asyncio aiosqlite httpx" demo-app
 
 docker compose run --entrypoint "poetry run pytest" demo-app
+
+docker compose run --entrypoint "poetry run pytest -k test_due_date" demo-up
